@@ -4,6 +4,7 @@ import './App.css'
 import Web3 from 'web3'
 import Wallet from './components/Wallet'
 import { TOKEN_ADDRESS } from './config'
+import Payment from './components/Payment'
 
 function App() {
 
@@ -47,7 +48,8 @@ function App() {
 
 	return (
 		<div className="App">
-			<Wallet balance={ balance? balance:'0' } wallet_address={account} />
+			<Wallet balance={ balance? balance:'0' } wallet_address={ account } />
+			<Payment wallet_address={ account }/>
 		</div>
 	)
 }
