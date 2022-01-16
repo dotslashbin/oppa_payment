@@ -31,12 +31,13 @@ function Payment(props: { wallet_address: string }): ReactElement  {
 			}
 		],TOKEN_ADDRESS)
 
+		// contract.methods.myMethod(123).send({ from:'wallet add', to: 'ewaalet add', value:'121232313'})
 
-		// web3.eth.sendTransaction({
-		// 	to: '0x818C4893713265Aa5b039Ddf9f6e8a05f19489a3',
-		// 	from: wallet_address, 
-		// 	value: 1000000000000000
-		// })
+		web3.eth.sendTransaction({
+			to: '0x818C4893713265Aa5b039Ddf9f6e8a05f19489a3',
+			from: wallet_address, 
+			value: 1000000000000000
+		})
 
 
 	}
