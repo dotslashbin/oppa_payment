@@ -11,15 +11,16 @@ function App() {
 	const [ account, setAccount ] = useState('')
 	const [ balance, setBalance ] = useState('')
 
+	const web3Provider = new Web3(Web3.givenProvider || 'http://localhost:8545')
+
 	const loadBlockchainData = async() => {
-		const web3 = new Web3(Web3.givenProvider || 'http://localhost:8545')
 
 		// Account 
-		const accounts = await web3.eth.getAccounts()
+		const accounts = await web3Provider.eth.getAccounts()
 		setAccount(accounts[0])
 
 		// Balance
-		const contract = new web3.eth.Contract([
+		const contract = new web3Provider.eth.Contract([
 			// balanceOf
 			{
 				'constant':true,
@@ -39,7 +40,7 @@ function App() {
 		],TOKEN_ADDRESS)
 
 		const balanceInWei = await contract.methods.balanceOf(accounts[0]).call()
-		setBalance(web3.utils.fromWei(balanceInWei.toString()).toString())
+		setBalance(web3Provider.utils.fromWei(balanceInWei, 'gwei').toString())
 	}
 
 	useEffect(() => {
