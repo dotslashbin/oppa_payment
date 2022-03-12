@@ -9,7 +9,7 @@ function Wallet(props: { wallet_address: string, balance: string }): ReactElemen
 			Your Wallet details: 
 			{ wallet_address }
 			<div>
-				JOSH: { balance }
+				FOOB: { balance }
 			</div>
 		</div>
 	)
