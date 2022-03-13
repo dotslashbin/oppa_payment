@@ -1,52 +1,38 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 
-import Web3 from 'web3'
-import { TOKEN_ADDRESS } from '../config'
+import { STORE_WALLET_ADDRESS } from '../config'
+import { OPPAtoken, web3Provider } from '../contract'
 
-function Payment(props: { wallet_address: string }): ReactElement  {
+function Payment(props: { account: any }): ReactElement  {
 
-	const { wallet_address } = props
+	const [ tnx, setTnx ] = useState('')
+
+	const { account } = props
 
 	const processPayment = async () => {
-		const web3 = new Web3(Web3.givenProvider || 'http://localhost:8545')
-
-
-		// Balance
-		const contract = new web3.eth.Contract([
-			// balanceOf
-			{
-				'constant':true,
-				'inputs':[{'name':'_owner','type':'address'}],
-				'name':'balanceOf',
-				'outputs':[{'name':'balance','type':'uint256'}],
-				'type':'function'
-			},
-			// decimals
-			{
-				'constant':true,
-				'inputs':[],
-				'name':'decimals',
-				'outputs':[{'name':'','type':'uint8'}],
-				'type':'function'
-			}
-		],TOKEN_ADDRESS)
-
-		// contract.methods.myMethod(123).send({ from:'wallet add', to: 'ewaalet add', value:'121232313'})
-
-		web3.eth.sendTransaction({
-			to: '0x818C4893713265Aa5b039Ddf9f6e8a05f19489a3',
-			from: wallet_address, 
-			value: 1000000000000000
-		})
-
-
+		const decimals = web3Provider.utils.toBN(9)
+		const amount = web3Provider.utils.toBN(4)
+		const value = amount.mul(web3Provider.utils.toBN(10).pow(decimals))
+		OPPAtoken.methods.transfer(STORE_WALLET_ADDRESS, value).send({from: account})
+			.on('transactionHash', function(hash: any){
+				setTnx(`TRANSACTION HASH: ${ hash }`)
+				console.log('TRRANSFER TRANSACTION HASH: ', hash)
+			})
+		
 	}
 
 	return (
 		<div>
-			<button onClick={() =>  processPayment()}>Pay 10 now</button>
+			<div>
+				{ tnx }
+			</div>
+			<button onClick={() =>  processPayment()}>Pay 4 now</button>
 		</div>
 	)
 }
 
 export default Payment
+
+function callback( err: Error ): void {
+	throw new Error( 'Function not implemented.' )
+}
