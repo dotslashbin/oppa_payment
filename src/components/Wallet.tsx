@@ -9,7 +9,7 @@ function Wallet(props: { wallet_address: string, balance: string }): ReactElemen
 			Your Wallet details: 
 			{ wallet_address }
 			<div>
-				FOOB: { balance }
+				OPPAconfig in: { balance }
 			</div>
 		</div>
 	)
