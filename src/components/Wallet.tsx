@@ -1,13 +1,16 @@
 import React, { ReactElement } from 'react'
 
-function Wallet(props: { wallet_address: string }): ReactElement {
+function Wallet(props: { wallet_address: string, balance: string }): ReactElement {
 
-	const { wallet_address } = props
+	const { balance, wallet_address } = props
 
 	return (
 		<div>
-			Wallet details: 
+			Your Wallet details: 
 			{ wallet_address }
+			<div>
+				OPPA balance { balance }
+			</div>
 		</div>
 	)
 }
